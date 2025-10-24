@@ -1,0 +1,40 @@
+<header class="header">
+  <div class="container">
+    <h1>{{ title }}</h1>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="container">
+    @if (currentView() === 'list') {
+      <app-pollution-list
+        (viewDetail)="onViewDetail($event)"
+        (editPollution)="onEditPollution($event)"
+        (createNew)="onCreateNew()"
+      />
+    }
+
+    @if (currentView() === 'detail' && selectedPollution()) {
+      <app-pollution-detail
+        [pollution]="selectedPollution()!"
+        (back)="onBackToList()"
+        (edit)="onEditFromDetail($event)"
+        (delete)="onDeleteFromDetail($event)"
+      />
+    }
+
+    @if (currentView() === 'form') {
+      <app-pollution-form
+        [pollutionToEdit]="pollutionToEdit()"
+        (cancel)="onCancelForm()"
+        (saved)="onSaved()"
+      />
+    }
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 - Gestion des Pollutions</p>
+  </div>
+</footer>

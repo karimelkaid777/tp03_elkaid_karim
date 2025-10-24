@@ -1,0 +1,19 @@
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
+import {environment} from '../environments/environment';
+import {mockBackendInterceptor} from './interceptors/mock-backend-interceptor';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection(),
+    provideRouter(routes),
+    provideHttpClient(
+      withFetch(),
+      ...(!environment.production ? [withInterceptors([mockBackendInterceptor])] : [])
+    )
+  ]
+};

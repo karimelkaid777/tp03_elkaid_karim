@@ -1,0 +1,83 @@
+<div class="detail-container">
+  <div class="header-actions">
+    <button (click)="onBack()" class="btn-back">← Retour</button>
+    <div class="actions">
+      <button (click)="onEdit()" class="btn btn-edit">
+        ✏️ Modifier
+      </button>
+      <button (click)="onDelete()" class="btn btn-delete">
+        🗑️ Supprimer
+      </button>
+    </div>
+  </div>
+
+  <div class="detail-card">
+    <div class="card-header">
+      <h1>{{ pollution.title }}</h1>
+      @if (pollution.severity) {
+        <span class="severity-badge severity-{{ pollution.severity }}">
+          {{ getSeverityLabel(pollution.severity) }}
+        </span>
+      }
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">Type de pollution</span>
+        <span class="value">{{ getTypeLabel(pollution.type) }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label">Date d'observation</span>
+        <span class="value">📅 {{ pollution.dateObservation | date:'fullDate' }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label">Localisation</span>
+        <span class="value">📍 {{ pollution.location }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label">Coordonnées GPS</span>
+        <span class="value">🌍 Lat: {{ pollution.latitude }}, Long: {{ pollution.longitude }}</span>
+      </div>
+
+      @if (pollution.severity) {
+        <div class="info-item">
+          <span class="label">Gravité</span>
+          <span class="value severity-{{ pollution.severity }}">
+            {{ getSeverityLabel(pollution.severity) }}
+          </span>
+        </div>
+      }
+
+      @if (pollution.status) {
+        <div class="info-item">
+          <span class="label">Statut</span>
+          <span class="value status-{{ pollution.status }}">
+            {{ getStatusLabel(pollution.status) }}
+          </span>
+        </div>
+      }
+
+      @if (pollution.reportedDate) {
+        <div class="info-item">
+          <span class="label">Date de signalement</span>
+          <span class="value">{{ pollution.reportedDate | date:'short' }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="description-section">
+      <h3>Description détaillée</h3>
+      <p>{{ pollution.description }}</p>
+    </div>
+
+    @if (pollution.photoUrl) {
+      <div class="photo-section">
+        <h3>📷 Photo</h3>
+        <img [src]="pollution.photoUrl" [alt]="pollution.title" class="pollution-photo">
+      </div>
+    }
+  </div>
+</div>
