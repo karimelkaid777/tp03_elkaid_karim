@@ -1,6 +1,7 @@
 import {HttpInterceptorFn, HttpResponse} from '@angular/common/http';
 import {delay, of, throwError} from 'rxjs';
 import {Pollution} from '../models/pollution.model';
+import {CreatePollutionDto, UpdatePollutionDto} from '../models/pollution.dto';
 import {MOCK_POLLUTIONS} from '../mocks/pollution.mock';
 
 let pollutionsDB = [...MOCK_POLLUTIONS];
@@ -14,19 +15,18 @@ export const mockBackendInterceptor: HttpInterceptorFn = (req, next) => {
   if (url.includes('/api/pollutions') && method === 'GET' && !url.match(/\/\d+$/)) {
     const urlObj = new URL(url, 'http://localhost');
     const type = urlObj.searchParams.get('type');
-    const severity = urlObj.searchParams.get('severity');
-    const status = urlObj.searchParams.get('status');
+    const title = urlObj.searchParams.get('title');
 
     let filteredPollutions = [...pollutionsDB];
 
     if (type) {
       filteredPollutions = filteredPollutions.filter(p => p.type === type);
     }
-    if (severity) {
-      filteredPollutions = filteredPollutions.filter(p => p.severity === severity);
-    }
-    if (status) {
-      filteredPollutions = filteredPollutions.filter(p => p.status === status);
+
+    if (title) {
+      filteredPollutions = filteredPollutions.filter(p =>
+        p.title.toLowerCase().includes(title.toLowerCase())
+      );
     }
 
     return of(new HttpResponse({
@@ -53,11 +53,18 @@ export const mockBackendInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   if (url.includes('/api/pollutions') && method === 'POST') {
+    const createDto = body as CreatePollutionDto;
+
     const newPollution: Pollution = {
       id: nextId++,
-      ...(body as Omit<Pollution, 'id'>),
-      dateObservation: (body as any).dateObservation ? new Date((body as any).dateObservation) : new Date(),
-      reportedDate: new Date()
+      title: createDto.title,
+      type: createDto.type,
+      description: createDto.description,
+      dateObservation: createDto.dateObservation ? new Date(createDto.dateObservation) : new Date(),
+      location: createDto.location,
+      latitude: createDto.latitude,
+      longitude: createDto.longitude,
+      photoUrl: createDto.photoUrl
     };
 
     pollutionsDB.push(newPollution);
@@ -73,9 +80,18 @@ export const mockBackendInterceptor: HttpInterceptorFn = (req, next) => {
     const index = pollutionsDB.findIndex(p => p.id === id);
 
     if (index !== -1) {
+      const updateDto = body as UpdatePollutionDto;
+
       pollutionsDB[index] = {
         ...pollutionsDB[index],
-        ...(body as Partial<Pollution>),
+        ...(updateDto.title !== undefined && { title: updateDto.title }),
+        ...(updateDto.type !== undefined && { type: updateDto.type }),
+        ...(updateDto.description !== undefined && { description: updateDto.description }),
+        ...(updateDto.dateObservation !== undefined && { dateObservation: new Date(updateDto.dateObservation) }),
+        ...(updateDto.location !== undefined && { location: updateDto.location }),
+        ...(updateDto.latitude !== undefined && { latitude: updateDto.latitude }),
+        ...(updateDto.longitude !== undefined && { longitude: updateDto.longitude }),
+        ...(updateDto.photoUrl !== undefined && { photoUrl: updateDto.photoUrl }),
         id
       };
 

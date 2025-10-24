@@ -10,10 +10,7 @@ export const MOCK_POLLUTIONS: Pollution[] = [
     location: 'Rivière Seine, Paris 15ème',
     latitude: 48.8566,
     longitude: 2.3522,
-    photoUrl: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800',
-    severity: 'critical',
-    status: 'in-progress',
-    reportedDate: new Date('2025-10-15')
+    photoUrl: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800'
   },
   {
     id: 2,
@@ -24,10 +21,7 @@ export const MOCK_POLLUTIONS: Pollution[] = [
     location: 'Zone industrielle, Lyon',
     latitude: 45.764,
     longitude: 4.8357,
-    photoUrl: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800',
-    severity: 'high',
-    status: 'reported',
-    reportedDate: new Date('2025-10-18')
+    photoUrl: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800'
   },
   {
     id: 3,
@@ -37,10 +31,7 @@ export const MOCK_POLLUTIONS: Pollution[] = [
     dateObservation: new Date('2025-10-20'),
     location: 'Terrain vague, Marseille',
     latitude: 43.2965,
-    longitude: 5.3698,
-    severity: 'high',
-    status: 'reported',
-    reportedDate: new Date('2025-10-20')
+    longitude: 5.3698
   },
   {
     id: 4,
@@ -51,10 +42,7 @@ export const MOCK_POLLUTIONS: Pollution[] = [
     location: 'Canal de l\'Ourcq, Paris',
     latitude: 48.8838,
     longitude: 2.3883,
-    photoUrl: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=800',
-    severity: 'medium',
-    status: 'in-progress',
-    reportedDate: new Date('2025-10-19')
+    photoUrl: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=800'
   },
   {
     id: 5,
@@ -65,10 +53,7 @@ export const MOCK_POLLUTIONS: Pollution[] = [
     location: 'Côte Méditerranéenne, Nice',
     latitude: 43.7102,
     longitude: 7.2620,
-    photoUrl: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=800',
-    severity: 'critical',
-    status: 'resolved',
-    reportedDate: new Date('2025-10-12')
+    photoUrl: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=800'
   },
   {
     id: 6,
@@ -78,10 +63,7 @@ export const MOCK_POLLUTIONS: Pollution[] = [
     dateObservation: new Date('2025-10-21'),
     location: 'Centre-ville, Toulouse',
     latitude: 43.6047,
-    longitude: 1.4442,
-    severity: 'medium',
-    status: 'reported',
-    reportedDate: new Date('2025-10-21')
+    longitude: 1.4442
   },
   {
     id: 7,
@@ -91,10 +73,7 @@ export const MOCK_POLLUTIONS: Pollution[] = [
     dateObservation: new Date('2025-10-17'),
     location: 'Plaine agricole, Bordeaux',
     latitude: 44.8378,
-    longitude: -0.5792,
-    severity: 'high',
-    status: 'in-progress',
-    reportedDate: new Date('2025-10-17')
+    longitude: -0.5792
   },
   {
     id: 8,
@@ -105,9 +84,6 @@ export const MOCK_POLLUTIONS: Pollution[] = [
     location: 'Plage de Biarritz',
     latitude: 43.4832,
     longitude: -1.5586,
-    photoUrl: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=800',
-    severity: 'low',
-    status: 'reported',
-    reportedDate: new Date('2025-10-22')
+    photoUrl: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=800'
   }
 ];

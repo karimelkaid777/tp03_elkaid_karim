@@ -30,12 +30,9 @@
     <div class="form-group">
       <label for="type">Type de pollution *</label>
       <select id="type" formControlName="type">
-        <option value="Plastique">Plastique</option>
-        <option value="Chimique">Chimique</option>
-        <option value="Dépôt sauvage">Dépôt sauvage</option>
-        <option value="Eau">Eau</option>
-        <option value="Air">Air</option>
-        <option value="Autre">Autre</option>
+        @for (type of pollutionTypes; track type) {
+          <option [value]="type">{{ type }}</option>
+        }
       </select>
     </div>
 
@@ -134,29 +131,6 @@
       >
       <small>Optionnel - URL de la photo de la pollution</small>
     </div>
-
-    @if (isEditMode) {
-      <div class="form-row">
-        <div class="form-group">
-          <label for="severity">Gravité *</label>
-          <select id="severity" formControlName="severity">
-            <option value="low">Faible</option>
-            <option value="medium">Moyenne</option>
-            <option value="high">Élevée</option>
-            <option value="critical">Critique</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="status">Statut *</label>
-          <select id="status" formControlName="status">
-            <option value="reported">Signalé</option>
-            <option value="in-progress">En cours</option>
-            <option value="resolved">Résolu</option>
-          </select>
-        </div>
-      </div>
-    }
 
       <div class="form-actions">
         <button type="button" (click)="onCancel()" class="btn btn-secondary">

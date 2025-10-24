@@ -68,35 +68,6 @@
         font-size: 2rem;
         flex: 1;
       }
-
-      .severity-badge {
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        white-space: nowrap;
-
-        &.severity-low {
-          background-color: #d4edda;
-          color: #155724;
-        }
-
-        &.severity-medium {
-          background-color: #fff3cd;
-          color: #856404;
-        }
-
-        &.severity-high {
-          background-color: #f8d7da;
-          color: #721c24;
-        }
-
-        &.severity-critical {
-          background-color: #721c24;
-          color: white;
-        }
-      }
     }
 
     .info-grid {
@@ -121,18 +92,6 @@
           font-size: 1.1rem;
           color: #2c3e50;
           font-weight: 500;
-
-          &.status-reported {
-            color: #3498db;
-          }
-
-          &.status-in-progress {
-            color: #f39c12;
-          }
-
-          &.status-resolved {
-            color: #27ae60;
-          }
         }
       }
     }

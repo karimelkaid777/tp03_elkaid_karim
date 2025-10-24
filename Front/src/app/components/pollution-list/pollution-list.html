@@ -8,36 +8,22 @@
 
   <div class="filters">
     <div class="filter-group">
+      <label>Titre :</label>
+      <input
+        type="text"
+        [ngModel]="filterTitle()"
+        (ngModelChange)="filterTitle.set($event); applyFilters()"
+        placeholder="Rechercher par titre..."
+      >
+    </div>
+
+    <div class="filter-group">
       <label>Type :</label>
       <select [ngModel]="filterType()" (ngModelChange)="filterType.set($event); applyFilters()">
         <option value="">Tous</option>
-        <option value="Plastique">Plastique</option>
-        <option value="Chimique">Chimique</option>
-        <option value="Dépôt sauvage">Dépôt sauvage</option>
-        <option value="Eau">Eau</option>
-        <option value="Air">Air</option>
-        <option value="Autre">Autre</option>
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label>Gravité :</label>
-      <select [ngModel]="filterSeverity()" (ngModelChange)="filterSeverity.set($event); applyFilters()">
-        <option value="">Toutes</option>
-        <option value="low">Faible</option>
-        <option value="medium">Moyenne</option>
-        <option value="high">Élevée</option>
-        <option value="critical">Critique</option>
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label>Statut :</label>
-      <select [ngModel]="filterStatus()" (ngModelChange)="filterStatus.set($event); applyFilters()">
-        <option value="">Tous</option>
-        <option value="reported">Signalé</option>
-        <option value="in-progress">En cours</option>
-        <option value="resolved">Résolu</option>
+        @for (type of pollutionTypes; track type) {
+          <option [value]="type">{{ type }}</option>
+        }
       </select>
     </div>
   </div>
@@ -56,25 +42,11 @@
         <div class="pollution-card" (click)="onViewDetail(pollution)">
           <div class="card-header">
             <span class="type-icon">{{ getTypeIcon(pollution.type) }}</span>
-            @if (pollution.severity) {
-              <span class="severity-badge" [ngClass]="getSeverityClass(pollution.severity)">
-                {{ pollution.severity }}
-              </span>
-            }
           </div>
 
           <h3>{{ pollution.title }}</h3>
           <p class="location">📍 {{ pollution.location }}</p>
           <p class="description">{{ pollution.description }}</p>
-
-          <div class="card-footer">
-            @if (pollution.status) {
-              <span class="status">{{ pollution.status }}</span>
-            }
-            @if (pollution.reportedDate) {
-              <span class="date">{{ pollution.reportedDate | date:'dd/MM/yyyy HH:mm' }}</span>
-            }
-          </div>
 
           <div class="card-actions">
             <button

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { environment } from '../../environments/environment';
 import {Pollution} from '../models/pollution.model';
+import {CreatePollutionDto, UpdatePollutionDto, PollutionFilterDto} from '../models/pollution.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -19,29 +20,24 @@ export class PollutionService {
     return this.http.get<Pollution>(`${this.apiUrl}/${id}`);
   }
 
-  createPollution(pollution: Omit<Pollution, 'id'>): Observable<Pollution> {
-    return this.http.post<Pollution>(this.apiUrl, pollution);
+  createPollution(pollutionDto: CreatePollutionDto): Observable<Pollution> {
+    return this.http.post<Pollution>(this.apiUrl, pollutionDto);
   }
 
-  updatePollution(id: number, pollution: Partial<Pollution>): Observable<Pollution> {
-    return this.http.put<Pollution>(`${this.apiUrl}/${id}`, pollution);
+  updatePollution(id: number, pollutionDto: UpdatePollutionDto): Observable<Pollution> {
+    return this.http.put<Pollution>(`${this.apiUrl}/${id}`, pollutionDto);
   }
 
   deletePollution(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  filterPollutions(filters: {
-    type?: string;
-    severity?: string;
-    status?: string;
-  }): Observable<Pollution[]> {
+  filterPollutions(filters: PollutionFilterDto): Observable<Pollution[]> {
     let url = this.apiUrl;
     const params = new URLSearchParams();
 
     if (filters.type) params.append('type', filters.type);
-    if (filters.severity) params.append('severity', filters.severity);
-    if (filters.status) params.append('status', filters.status);
+    if (filters.title) params.append('title', filters.title);
 
     const queryString = params.toString();
     if (queryString) {

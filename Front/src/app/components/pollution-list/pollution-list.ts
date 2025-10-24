@@ -1,15 +1,14 @@
 import {Component, inject, Output, EventEmitter, signal, OnInit} from '@angular/core';
 import {Pollution} from '../../models/pollution.model';
+import {PollutionFilterDto} from '../../models/pollution.dto';
+import {POLLUTION_TYPES} from '../../models/pollution.constants';
 import {PollutionService} from '../../services/pollution';
 import {FormsModule} from '@angular/forms';
-import {NgClass, DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-pollution-list',
   imports: [
-    FormsModule,
-    NgClass,
-    DatePipe
+    FormsModule
   ],
   templateUrl: './pollution-list.html',
   styleUrl: './pollution-list.scss'
@@ -22,8 +21,9 @@ export class PollutionList implements OnInit {
   error = signal<string | null>(null);
 
   filterType = signal<string>('');
-  filterSeverity = signal<string>('');
-  filterStatus = signal<string>('');
+  filterTitle = signal<string>('');
+
+  readonly pollutionTypes = POLLUTION_TYPES;
 
   @Output() viewDetail = new EventEmitter<Pollution>();
   @Output() editPollution = new EventEmitter<Pollution>();
@@ -53,13 +53,12 @@ export class PollutionList implements OnInit {
 
   applyFilters() {
     this.loading.set(true);
-    const filters = {
+    const filterDto: PollutionFilterDto = {
       type: this.filterType() || undefined,
-      severity: this.filterSeverity() || undefined,
-      status: this.filterStatus() || undefined
+      title: this.filterTitle() || undefined
     };
 
-    this.pollutionService.filterPollutions(filters).subscribe({
+    this.pollutionService.filterPollutions(filterDto).subscribe({
       next: (data) => {
         this.pollutions.set(data);
         this.loading.set(false);
@@ -99,10 +98,6 @@ export class PollutionList implements OnInit {
 
   onCreateNew() {
     this.createNew.emit();
-  }
-
-  getSeverityClass(severity: string): string {
-    return `severity-${severity}`;
   }
 
   getTypeIcon(type: string): string {

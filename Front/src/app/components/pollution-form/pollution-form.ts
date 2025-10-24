@@ -2,6 +2,8 @@ import {Component, Input, Output, EventEmitter, inject, signal, OnChanges, Simpl
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors} from "@angular/forms";
 import {PollutionService} from '../../services/pollution';
 import {Pollution} from '../../models/pollution.model';
+import {CreatePollutionDto, UpdatePollutionDto} from '../../models/pollution.dto';
+import {POLLUTION_TYPES} from '../../models/pollution.constants';
 import {PollutionRecap} from '../pollution-recap/pollution-recap';
 import { isAfter, endOfDay, parseISO, format } from 'date-fns';
 
@@ -45,6 +47,8 @@ export class PollutionForm implements OnChanges {
   showForm = signal(true);
   submittedPollution = signal<Pollution | null>(null);
 
+  readonly pollutionTypes = POLLUTION_TYPES;
+
   constructor() {
     this.pollutionForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
@@ -54,9 +58,7 @@ export class PollutionForm implements OnChanges {
       location: ['', Validators.required],
       latitude: ['', [Validators.required, Validators.pattern(/^-?([0-9]{1,2}|1[0-7][0-9]|180)(\.[0-9]+)?$/)]],
       longitude: ['', [Validators.required, Validators.pattern(/^-?([0-9]{1,2}|1[0-7][0-9]|180)(\.[0-9]+)?$/)]],
-      photoUrl: [''],
-      severity: ['medium'],
-      status: ['reported']
+      photoUrl: ['']
     });
   }
 
@@ -72,15 +74,11 @@ export class PollutionForm implements OnChanges {
           location: pollution.location,
           latitude: pollution.latitude,
           longitude: pollution.longitude,
-          photoUrl: pollution.photoUrl || '',
-          severity: pollution.severity || 'medium',
-          status: pollution.status || 'reported'
+          photoUrl: pollution.photoUrl || ''
         });
       } else {
         this.pollutionForm.reset({
-          type: 'Plastique',
-          severity: 'medium',
-          status: 'reported'
+          type: 'Plastique'
         });
       }
     }
@@ -103,12 +101,12 @@ export class PollutionForm implements OnChanges {
         this.loading.set(true);
         this.error.set(null);
 
-        const formData = {
+        const updateDto: UpdatePollutionDto = {
           ...this.pollutionForm.value
         };
 
         const id = this.pollutionToEdit!.id;
-        this.pollutionService.updatePollution(id, formData).subscribe({
+        this.pollutionService.updatePollution(id, updateDto).subscribe({
           next: () => {
             this.loading.set(false);
             this.saved.emit();
@@ -123,9 +121,9 @@ export class PollutionForm implements OnChanges {
         this.loading.set(true);
         this.error.set(null);
 
-        const { severity, status, ...formDataTP02 } = this.pollutionForm.value;
+        const createDto: CreatePollutionDto = this.pollutionForm.value;
 
-        this.pollutionService.createPollution(formDataTP02).subscribe({
+        this.pollutionService.createPollution(createDto).subscribe({
           next: (createdPollution) => {
             this.loading.set(false);
             this.submittedPollution.set(createdPollution);

@@ -46,6 +46,7 @@
         font-size: 0.9rem;
       }
 
+      input,
       select {
         padding: 0.5rem;
         border: 1px solid #ddd;
@@ -57,6 +58,10 @@
           outline: none;
           border-color: #3498db;
         }
+      }
+
+      input {
+        cursor: text;
       }
     }
   }
@@ -100,34 +105,6 @@
       .type-icon {
         font-size: 2rem;
       }
-
-      .severity-badge {
-        padding: 0.25rem 0.75rem;
-        border-radius: 12px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-
-        &.severity-low {
-          background-color: #d4edda;
-          color: #155724;
-        }
-
-        &.severity-medium {
-          background-color: #fff3cd;
-          color: #856404;
-        }
-
-        &.severity-high {
-          background-color: #f8d7da;
-          color: #721c24;
-        }
-
-        &.severity-critical {
-          background-color: #721c24;
-          color: white;
-        }
-      }
     }
 
     h3 {
@@ -150,28 +127,6 @@
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
-    }
-
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid #eee;
-
-      .status {
-        font-size: 0.85rem;
-        padding: 0.25rem 0.5rem;
-        background-color: #e8f4f8;
-        color: #2c3e50;
-        border-radius: 4px;
-      }
-
-      .date {
-        font-size: 0.85rem;
-        color: #95a5a6;
-      }
     }
 
     .card-actions {

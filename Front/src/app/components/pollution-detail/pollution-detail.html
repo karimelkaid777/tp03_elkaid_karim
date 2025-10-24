@@ -14,11 +14,6 @@
   <div class="detail-card">
     <div class="card-header">
       <h1>{{ pollution.title }}</h1>
-      @if (pollution.severity) {
-        <span class="severity-badge severity-{{ pollution.severity }}">
-          {{ getSeverityLabel(pollution.severity) }}
-        </span>
-      }
     </div>
 
     <div class="info-grid">
@@ -41,31 +36,6 @@
         <span class="label">Coordonnées GPS</span>
         <span class="value">🌍 Lat: {{ pollution.latitude }}, Long: {{ pollution.longitude }}</span>
       </div>
-
-      @if (pollution.severity) {
-        <div class="info-item">
-          <span class="label">Gravité</span>
-          <span class="value severity-{{ pollution.severity }}">
-            {{ getSeverityLabel(pollution.severity) }}
-          </span>
-        </div>
-      }
-
-      @if (pollution.status) {
-        <div class="info-item">
-          <span class="label">Statut</span>
-          <span class="value status-{{ pollution.status }}">
-            {{ getStatusLabel(pollution.status) }}
-          </span>
-        </div>
-      }
-
-      @if (pollution.reportedDate) {
-        <div class="info-item">
-          <span class="label">Date de signalement</span>
-          <span class="value">{{ pollution.reportedDate | date:'short' }}</span>
-        </div>
-      }
     </div>
 
     <div class="description-section">
