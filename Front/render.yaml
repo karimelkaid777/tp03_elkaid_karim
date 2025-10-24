@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: tp03-elkaid-karim
+    env: node
+    region: frankfurt
+    plan: free
+    rootDir: ./Front
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.0
